@@ -66,10 +66,10 @@ def train():
 
 	print('Generic caliberated LGBM model Test score:',calibrated_clf.score(xTet,yTe))
 	print('Generic caliberated LGBM model Train score:',calibrated_clf.score(xTrt,yTr))
-	print('f1:',metrics.f1_score(cal_prob,calibrated_clf.predict(xTet)),
-	'\nrecall:',metrics.recall_score(cal_prob,calibrated_clf.predict(xTet)),
-	'\nprecision:',metrics.precision_score(cal_prob,calibrated_clf.predict(xTet)))
-	fpr, tpr, thresholds = metrics.roc_curve(cal_prob, calibrated_clf.predict_proba(xTet)[:,1])
+	print('f1:',metrics.f1_score(yTe,cal_prob),
+	'\nrecall:',metrics.recall_score(yTe,cal_prob),
+	'\nprecision:',metrics.precision_score(yTe,cal_prob)
+	fpr, tpr, thresholds = metrics.roc_curve(yTe, calibrated_clf.predict_proba(xTet)[:,1])
 	print('AUROC:',metrics.auc(fpr, tpr))
 	
 	
