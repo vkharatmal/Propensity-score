@@ -31,11 +31,6 @@ def train():
 	xTrt=xTr.drop(columns=['Identifier'])
 	xTet=xTe.drop(columns=['Identifier'])
 
-
-	# Model fitting
-	# lgbm_model=lgb.LGBMClassifier(learning_rate=0.105,max_depth=-41,random_state=42,bagging_freq=1,bagging_fraction=0.7)
-	# lgbm_model=lgb.LGBMClassifier(learning_rate=0.371,max_depth=-41,random_state=42,bagging_freq=3,bagging_fraction=0.65)
-
 	params = {
 	'max_bin' : [128],
 	'num_leaves': [8],
@@ -49,12 +44,6 @@ def train():
 	lgbm_model = lgb.LGBMClassifier(n_jobs=-1, n_estimators=7000, 
 	                     **params)
 	lgbm_model.fit(xTrt,yTr,eval_set=[(xTet,yTe)],eval_metric='auc',verbose=0,early_stopping_rounds=80)
-
-
-	# lgbm_model=lgb.LGBMClassifier(learning_rate=0.09,max_depth=-5,random_state=42)
-	# lgbm_model.fit(xTrt,yTr,eval_set=[(xTet,yTe)],eval_metric='auc',verbose=0,early_stopping_rounds=40)
-	# lgbm_model.fit(xTrt,yTr,eval_set=[(xTet,yTe),(xTrt,yTr)],eval_metric='auc',verbose=0)
-
 
 	# Model score
 	print('Generic LGBM model Test score:',lgbm_model.score(xTet,yTe))
